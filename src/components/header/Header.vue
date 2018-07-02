@@ -34,11 +34,11 @@
     <div class="discount-activity">
       <img class="icon" v-if="poiInfo.discounts2" :src="poiInfo.discounts2[0].icon_url">
       <span class="text" v-if="poiInfo.discounts2">{{poiInfo.discounts2[0].info}}</span>
-      <div class="detail" v-if="poiInfo.discounts2">
-        {{poiInfo.discounts2[0].length}}个活动
-      </div>
+      <a class="activity-icon" v-if="poiInfo.discounts2">
+        {{poiInfo.discounts2.length}}个活动
+        <span class="icon-keyboard_arrow_right"></span>
+      </a>
     </div>
-
     <!-- 优惠活动 end -->
   </div>
 </template>
@@ -71,18 +71,14 @@
   }
 
   .header{
-    height: 2.5rem;
+    height: 2.6rem;
     background-size: 100% auto;
     background-position: 0 -0.5rem;
   }
   .header .top-nav{
+    display: flex;
+    align-items: center;
     line-height: 1rem;
-    font-size: 0;
-  }
-  .top-nav .back-btn, .top-nav .search-box, .top-nav .more-operate{
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 12px;
   }
   .top-nav .back-btn{
     width: 1rem;
@@ -90,6 +86,7 @@
     color: #fff;
   }
   .top-nav .search-box{
+    flex: 1;
     position: relative;
     width: 5rem;
     height: 0.7rem;
@@ -108,7 +105,6 @@
     background-size: 0.3rem 0.3rem;
   }
   .top-nav .search-box input{
-    width: 4.5rem;
     padding-left: 0.5rem;
     line-height: 0.7rem;
     vertical-align: top;
@@ -137,13 +133,16 @@
     border: 1px solid #fff;
     border-radius: 50%;
   }
+  .business-info, .discount-activity{
+    margin: 0 0.2rem;
+  }
   .business-info{
     display: flex;
   }
   .business-info .pic{
     width: 1rem;
     height: 1rem;
-    margin: 0 0.15rem 0 0.2rem;
+    margin-right: 0.15rem;
   }
   .business-info .pic img{
     width: 100%;
@@ -158,17 +157,37 @@
   }
   .business-info .favor{
     width: 0.8rem;
-    text-align: center;
+    text-align: right;
     color: #fff;
   }
   .business-info .favor:before{
     content: '';
-    display: inline-block;
+    display: block;
     width: 100%;
     height: 0.4rem;
-    margin: 0.1rem 0 0.05rem;
-    background: url("./img/star.png") no-repeat top center;
+    margin: 0.1rem 0;
+    background: url("./img/star.png") no-repeat top right;
     background-size: 0.4rem 0.4rem;
+  }
+  .discount-activity{
+    display: flex;
+    align-items: center;
+    margin-top: 0.1rem;
+  }
+  .discount-activity img{
+    width: 0.3rem;
+    height: 0.3rem;
+    margin-right: 0.1rem;
+    border-radius: 2px;
+  }
+  .discount-activity .text{
+    flex: 1;
+    color: #fff;
+  }
+  .discount-activity .activity-icon{
+    width: 1.1rem;
+    text-align: right;
+    color: #fff;
   }
 
 </style>
