@@ -46,6 +46,7 @@
           <img class="pic" :src="poiInfo.pic_url">
           <h3 class="name">{{poiInfo.name}}</h3>
           <div class="score">
+            <app-star :score="poiInfo.wm_poi_score"></app-star>
             <span>{{poiInfo.wm_poi_score}}</span>
           </div>
           <p class="tips">
@@ -67,11 +68,15 @@
 </template>
 
 <script>
+  import Star from '../star/Star'
   export default {
     data(){
       return {
-        isShowMask: false
+        isShowMask: true
       }
+    },
+    components: {
+      'app-star': Star
     },
     props: {
       poiInfo: {
@@ -284,7 +289,7 @@
     width: 0.8rem;
     height: 0.8rem;
     margin-top: 0.3rem;
-    background: rgba(118, 118, 118, 0.7);
+    background: rgba(118, 118, 118, 0.8);
     border-radius: 50%;
     transform: rotate(45deg);
   }
