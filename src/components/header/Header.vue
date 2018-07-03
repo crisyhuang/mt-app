@@ -30,7 +30,7 @@
 
     <!-- 优惠活动 start -->
     <div class="discount-activity">
-      <img class="pic" v-if="poiInfo.discounts2" :src="poiInfo.discounts2[0].icon_url">
+      <img class="icon" v-if="poiInfo.discounts2" :src="poiInfo.discounts2[0].icon_url">
       <span class="text" v-if="poiInfo.discounts2">{{poiInfo.discounts2[0].info}}</span>
       <a class="activity-icon" v-if="poiInfo.discounts2" @click="showMask">
         {{poiInfo.discounts2.length}}个活动
@@ -43,7 +43,7 @@
     <div class="activity-mask" v-show="isShowMask">
       <div class="wrapper">
         <div class="content" :style="mask_bg_url">
-          <img class="pic" :src="poiInfo.pic_url">
+          <img class="icon" :src="poiInfo.pic_url">
           <h3 class="name">{{poiInfo.name}}</h3>
           <div class="score">
             <app-star :score="poiInfo.wm_poi_score"></app-star>
@@ -72,7 +72,7 @@
   export default {
     data(){
       return {
-        isShowMask: true
+        isShowMask: false
       }
     },
     components: {
@@ -210,7 +210,7 @@
     align-items: center;
     margin-top: 0.1rem;
   }
-  .discount-activity .pic{
+  .discount-activity .icon{
     width: 0.3rem;
     height: 0.3rem;
     margin-right: 0.1rem;
@@ -250,7 +250,7 @@
     background-size: 7rem 12rem;
     border-radius: 10px;
   }
-  .activity-mask .content .pic{
+  .activity-mask .content .icon{
     width: 1.5rem;
     height: 1.5rem;
     margin-top: 0.8rem;
