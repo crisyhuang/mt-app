@@ -121,19 +121,18 @@
     align-items: center;
     line-height: 1rem;
   }
-  .top-nav .back-btn{
+  .header .top-nav .back-btn{
     width: 1rem;
     text-align: center;
   }
-  .top-nav .search-box{
+  .header .top-nav .search-box{
     flex: 1;
     position: relative;
-    width: 5rem;
     height: 0.7rem;
     background: #c8c5c9;
     border-radius: 25px;
   }
-  .top-nav .search-box:before{
+  .header .top-nav .search-box:before{
     content: '';
     position: absolute;
     top: 50%;
@@ -144,28 +143,28 @@
     background: url("./img/search.png") no-repeat;
     background-size: 0.3rem 0.3rem;
   }
-  .top-nav .search-box input{
+  .header .top-nav .search-box input{
     padding-left: 0.5rem;
     line-height: 0.7rem;
     vertical-align: top;
     background: none;
     border: none;
   }
-  .top-nav .more-operate{
+  .header .top-nav .more-operate{
     width: 1.5rem;
     text-align: right;
   }
-  .top-nav .more-operate .spell-btn{
+  .header .top-nav .more-operate .spell-btn{
     padding: 0.05rem;
     border: 1px solid #fff;
     text-decoration: none;
     color: #fff;
   }
-  .top-nav .more-operate .more-btn{
+  .header .top-nav .more-operate .more-btn{
     margin: 0 0.1rem;
     font-size: 0;
   }
-  .top-nav .more-operate .more-btn .circle-ico{
+  .header .top-nav .more-operate .more-btn .circle-ico{
     display: inline-block;
     width: 0.05rem;
     height: 0.05rem;
@@ -173,30 +172,30 @@
     border: 1px solid #fff;
     border-radius: 50%;
   }
-  .business-info, .discount-activity{
+  .header .business-info, .discount-activity{
     margin: 0 0.2rem;
   }
-  .business-info{
+  .header .business-info{
     display: flex;
   }
-  .business-info .pic{
+  .header .business-info .pic{
     width: 1rem;
     height: 1rem;
     margin-right: 0.15rem;
     border-radius: 5px;
   }
-  .business-info .name{
+  .header .business-info .name{
     flex: 1;
     line-height: 1rem;
     font-size: 16px;
     color: #fff;
   }
-  .business-info .favor{
+  .header .business-info .favor{
     width: 0.8rem;
     text-align: right;
     color: #fff;
   }
-  .business-info .favor:before{
+  .header .business-info .favor:before{
     content: '';
     display: block;
     width: 100%;
@@ -205,27 +204,27 @@
     background: url("./img/star.png") no-repeat top right;
     background-size: 0.4rem 0.4rem;
   }
-  .discount-activity{
+  .header .discount-activity{
     display: flex;
     align-items: center;
     margin-top: 0.1rem;
   }
-  .discount-activity .icon{
+  .header .discount-activity .icon{
     width: 0.3rem;
     height: 0.3rem;
     margin-right: 0.1rem;
     border-radius: 2px;
   }
-  .discount-activity .text{
+  .header .discount-activity .text{
     flex: 1;
     color: #fff;
   }
-  .discount-activity .activity-icon{
+  .header .discount-activity .activity-icon{
     width: 1.1rem;
     text-align: right;
     color: #fff;
   }
-  .activity-mask{
+  .header .activity-mask{
     position: absolute;
     top: 0;
     left: 0;
@@ -234,56 +233,56 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
   }
-  .activity-mask h3, .activity-mask p, .activity-mask span{
+  .header .activity-mask h3, .header .activity-mask p, .header .activity-mask span{
     color: #fff;
   }
-  .activity-mask .wrapper{
+  .header .activity-mask .wrapper{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
   }
-  .activity-mask .content{
+  .header .activity-mask .content{
     width: 6.5rem;
     height: 12rem;
     background-size: 7rem 12rem;
     border-radius: 10px;
   }
-  .activity-mask .content .icon{
+  .header .activity-mask .content .icon{
     width: 1.5rem;
     height: 1.5rem;
     margin-top: 0.8rem;
     border-radius: 5px;
   }
-  .activity-mask .content h3{
+  .header .activity-mask .content h3{
     margin: 0.25rem 0 0.1rem;
     font-size: 14px;
     font-weight: normal;
   }
-  .activity-mask .content p{
+  .header .activity-mask .content p{
     line-height: 2;
     color: #bababc;
   }
-  .activity-mask .content .tips i{
+  .header .activity-mask .content .tips i{
     margin: 0 0.14rem;
     font-style: normal;
     color: #bababc;
   }
-  .activity-mask .content .discounts{
+  .header .activity-mask .content .discounts{
     width: 90%;
     margin: 0.2rem auto;
     padding-top: 0.2rem;
     border-top: 1px solid #bababc;
   }
-  .activity-mask .content .discounts img{
+  .header .activity-mask .content .discounts img{
     width: 0.3rem;
     height: 0.3rem;
     margin-right: 0.1rem;
     vertical-align: text-bottom;
     border-radius: 2px;
   }
-  .activity-mask .u-close{
+  .header .activity-mask .u-close{
     position: relative;
     display: inline-block;
     width: 0.8rem;
@@ -293,7 +292,7 @@
     border-radius: 50%;
     transform: rotate(45deg);
   }
-  .activity-mask .u-close:before, .activity-mask .u-close:after{
+  .header .activity-mask .u-close:before, .header .activity-mask .u-close:after{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -303,12 +302,8 @@
     height: 15px;
     background: #fff;
   }
-  .activity-mask .u-close:before{
+  .header .activity-mask .u-close:before{
     transform: translate(-50%, -50%) rotate(90deg);
     transform-origin: 50% 50%;
   }
-
-
-
-
 </style>
