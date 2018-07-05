@@ -245,7 +245,7 @@
   }
   .header .activity-mask .content{
     width: 6.5rem;
-    height: 12rem;
+    height: 11rem;
     background-size: 7rem 12rem;
     border-radius: 10px;
   }

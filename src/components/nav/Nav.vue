@@ -26,6 +26,7 @@
     display: flex;
     width: 100%;
     line-height: 0.8rem;
+    background: #fff;
     border-bottom: 1px solid #e4e4e4;
   }
   .nav .nav-item{
