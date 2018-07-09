@@ -22,6 +22,7 @@
           <p class="text">
             <img class="icon" v-if="item.icon" :src="item.icon">
             {{item.name}}
+            <i v-if="calCount(item.spus)">{{calCount(item.spus)}}</i>
           </p>
         </li>
         <!-- 其他分类 end -->
@@ -48,7 +49,7 @@
               <img :src="food.picture">
               <div class="content">
                 <h3 class="name">{{food.name}}</h3>
-                <p class="desc">{{food.description}}</p>
+                <p class="desc" v-if="food.description">{{food.description}}</p>
                 <p class="detail">
                   <span class="saled">{{food.month_saled_content}}</span>
                   <span class="praised">{{food.praise_content}}</span>
@@ -59,6 +60,7 @@
                   <span class="unit">/{{food.unit}}</span>
                 </p>
               </div>
+              <app-cartcontrol :food="food"></app-cartcontrol>
             </li>
           </ul>
         </li>
@@ -66,13 +68,23 @@
       </ul>
     </div>
     <!-- 商品列表 end -->
+
+    <!-- 购物车 start -->
+    <app-shopcart :poiInfo="poiInfo" :selectedFood="selectedFood"></app-shopcart>
+    <!-- 购物车 end -->
   </div>
 </template>
 
 <script>
   import BScroll from 'better-scroll'
+  import Shopcart from '../shopcart/Shopcart'
+  import Cartcontrol from '../cartcontrol/Cartcontrol'
 
   export default {
+    components: {
+      'app-shopcart': Shopcart,
+      'app-cartcontrol': Cartcontrol
+    },
     data(){
       return {
         container: {},
@@ -94,6 +106,17 @@
             return i;
           }
         }
+      },
+      selectedFood(){
+        let foods = []
+        this.goods.forEach((classifyFood) => {
+          classifyFood.spus.forEach(food => {
+            if(food.count > 0){
+              foods.push(food)
+            }
+          })
+        })
+        return foods
       }
     },
     methods: {
@@ -124,6 +147,15 @@
       selectMenu(index){
         let foodList = this.$refs.foodScroll.getElementsByClassName('food-list-hook')
         this.foodScroll.scrollToElement(foodList[index], 250)
+      },
+      calCount(spus){
+        let count = 0;
+        spus.forEach((food) => {
+          if(food.count > 0){
+            count += food.count
+          }
+        })
+        return count
       }
     },
     created(){
@@ -146,8 +178,6 @@
             })
           }
         })
-
-
     }
   }
 </script>
@@ -159,6 +189,7 @@
     position: absolute;
     top: 3.4rem;
     bottom: 1rem;
+    overflow: hidden;
     z-index: -1;
   }
   .goods .menu-wrapper{
@@ -166,6 +197,7 @@
     background: #f4f4f4;
   }
   .goods .menu-wrapper .menu-item{
+    position: relative;
     padding: 0.3rem 0.3rem 0.3rem 0.2rem;
     border-bottom: 1px solid #e4e4e4;
   }
@@ -185,6 +217,19 @@
     width: 0.3rem;
     height: 0.3rem;
     vertical-align: sub;
+  }
+  .goods .menu-wrapper .menu-item i{
+    position: absolute;
+    right: 0.1rem;
+    top: 0.1rem;
+    width: 0.3rem;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    border-radius: 50%;
+    text-align: center;
+    background: #e90515;
+    color: #fff;
+    font-style: normal;
   }
   .goods .foods-wrapper{
     flex: 1;
@@ -219,6 +264,7 @@
     border-radius: 3px;
   }
   .goods .food-list .food-item{
+    position: relative;
     display: flex;
     margin-bottom: 0.4rem;
   }
@@ -237,11 +283,10 @@
   }
   .goods .food-list .food-item .content p{
     line-height: 0.28rem;
-    margin-bottom: 0.08rem;
+    margin: 0.08rem 0;
   }
   .goods .food-list .food-item .name{
     font-size: 16px;
-    margin-bottom: 0.2rem;
   }
   .goods .food-list .food-item .desc{
     -webkit-line-clamp: 1;
@@ -255,14 +300,9 @@
   }
   .goods .food-list .food-item .recommend-icon{
     height: 0.3rem;
-    margin-bottom: 0.1rem;
   }
   .goods .food-list .food-item .price .money{
     font-weight: bold;
     color: #fb4e44;
   }
-
-
-
-
 </style>
