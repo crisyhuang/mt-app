@@ -3,7 +3,7 @@
     <div class="shopping-cart-wrapper">
       <!-- 底部左侧 start -->
       <div class="content-left">
-        <div class="icon-cart-wrapper" :class="{highlight: totalCount > 0}">
+        <div class="icon-cart-wrapper" :class="{highlight: totalCount > 0}" @click="toggleList">
           <span class="icon-shopping_cart icon-cart"></span>
           <span class="total-count" v-show="totalCount">{{totalCount}}</span>
         </div>
@@ -19,18 +19,17 @@
       <!-- 底部右侧 end -->
 
       <!-- 购物车列表 start -->
-      <div class="shopping-cart-list">
-        <div class="cart-mask"></div>
+      <div class="shopping-cart-list" v-show="showCartList">
         <div class="cart-list-wrapper">
           <p class="list-top" v-if="poiInfo.discounts2">{{poiInfo.discounts2[0].info}}</p>
           <div class="list-header">
             <p>1号口袋</p>
-            <div class="empty-cart">
+            <div class="empty-cart" @click="emptyCart">
               <img src="./img/ash_bin.png" >
               <span>清空购物车</span>
             </div>
           </div>
-          <div class="list-content">
+          <div class="list-content" ref="listContent">
             <ul>
               <li class="food-item" v-for="(food, index) in selectedFood" :key="index">
                 <div class="desc">
@@ -48,15 +47,19 @@
       </div>
       <!-- 购物车列表 end -->
     </div>
+    <div class="cart-mask" v-show="showCartList" @click="hideMask"></div>
   </div>
 </template>
 
 <script>
+  import BScroll from 'better-scroll'
   import Cartcontrol from '../cartcontrol/Cartcontrol'
 
   export default {
     data(){
-      return {}
+      return {
+        flag: true
+      }
     },
     props: {
       poiInfo: {
@@ -92,6 +95,46 @@
         }else{
           return this.poiInfo.min_price_tip
         }
+      },
+      showCartList(){
+        if(!this.totalCount){
+          this.flag = true
+          return false
+        }
+
+        let show = !this.flag
+
+        if(show){
+          this.$nextTick(() => {
+            if(!this.listScroll){
+              this.listScroll = new BScroll(this.$refs.listContent, {
+                click: true
+              })
+            }else{
+              this.listScroll.refresh()
+            }
+          })
+        }
+
+
+        return show
+      }
+    },
+    methods: {
+      toggleList(){
+        if(!this.totalCount){
+          return false
+        }else{
+          this.flag = !this.flag
+        }
+      },
+      hideMask(){
+        this.flag = true
+      },
+      emptyCart(){
+        this.selectedFood.forEach((food) => {
+          food.count = 0;
+        })
       }
     }
   }
@@ -104,7 +147,7 @@
     position: fixed;
     left: 0;
     bottom: 0;
-    z-index: 999;
+    z-index: 100;
     display: flex;
     width: 100%;
     height: 1rem;
@@ -216,7 +259,8 @@
     color: #000;
   }
   .shopping-cart-list .list-content{
-    max-height: 6rem;
+    max-height: 3rem;
+    overflow: hidden;
     background: #fff;
   }
   .shopping-cart-list .list-content .food-item{
@@ -248,6 +292,15 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
+  }
+  .shopping-cart .cart-mask{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 98;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
   }
 
 
