@@ -2,13 +2,13 @@
   <div class="cart-control">
     <span
       class="decrease-cart"
-      @click="decreaseCart"
+      @click.stop.prevent="decreaseCart"
       v-show="food.count"
     ></span>
     <span class="cart-num" v-show="food.count">{{food.count}}</span>
     <span
       class="increase-cart"
-      @click="increaseCart"
+      @click.stop.prevent="increaseCart"
     ></span>
   </div>
 </template>

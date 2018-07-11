@@ -45,7 +45,9 @@
         <li class="food-list food-list-hook" v-for="(item, index) in goods" :key="index">
           <h3 class="classify-name">{{item.name}}</h3>
           <ul>
-            <li class="food-item" v-for="(food, index) in item.spus" :key="index">
+            <li class="food-item"
+                v-for="(food, index) in item.spus" :key="index"
+                @click="showDetail(food)">
               <img :src="food.picture">
               <div class="content">
                 <h3 class="name">{{food.name}}</h3>
@@ -72,6 +74,10 @@
     <!-- 购物车 start -->
     <app-shopcart :poiInfo="poiInfo" :selectedFood="selectedFood"></app-shopcart>
     <!-- 购物车 end -->
+
+    <!-- 商品详情页 start -->
+    <app-product-detail :food="clickedFood" ref="productDetail"></app-product-detail>
+    <!-- 商品详情页 end -->
   </div>
 </template>
 
@@ -79,11 +85,13 @@
   import BScroll from 'better-scroll'
   import Shopcart from '../shopcart/Shopcart'
   import Cartcontrol from '../cartcontrol/Cartcontrol'
+  import ProductDetail from '../productDetail/ProductDetail'
 
   export default {
     components: {
       'app-shopcart': Shopcart,
-      'app-cartcontrol': Cartcontrol
+      'app-cartcontrol': Cartcontrol,
+      'app-product-detail': ProductDetail
     },
     data(){
       return {
@@ -93,8 +101,30 @@
         menuScroll: {},
         foodScroll: {},
         heightList: [],
-        scrollY: 0
+        scrollY: 0,
+        clickedFood: {}
       }
+    },
+    created(){
+      fetch('/api/goods')
+        .then(res => {
+          return res.json()
+        })
+        .then(response => {
+          if(response.code === 0){
+            this.container = response.data.container_operation_source
+            this.goods = response.data.food_spu_tags
+            this.poiInfo = response.data.poi_info
+
+            // DOM 已更新
+            this.$nextTick(() => {
+              this.initScroll()
+
+              // 计算分类的区间高度 -> 监听滚动的位置 -> 根据滚动位置确定下标，实现左侧样式 -> 通过下标实现：点击左侧，滚动右侧
+              this.calHeight()
+            })
+          }
+        })
     },
     computed: {
       currentIndex(){
@@ -156,28 +186,11 @@
           }
         })
         return count
+      },
+      showDetail(food){
+        this.clickedFood = food
+        this.$refs.productDetail.showProduct()   // 父组件直接执行子组件的方法
       }
-    },
-    created(){
-      fetch('/api/goods')
-        .then(res => {
-          return res.json()
-        })
-        .then(response => {
-          if(response.code === 0){
-            this.container = response.data.container_operation_source
-            this.goods = response.data.food_spu_tags
-            this.poiInfo = response.data.poi_info
-
-            // DOM 已更新
-            this.$nextTick(() => {
-              this.initScroll()
-
-              // 计算分类的区间高度 -> 监听滚动的位置 -> 根据滚动位置确定下标，实现左侧样式 -> 通过下标实现：点击左侧，滚动右侧
-              this.calHeight()
-            })
-          }
-        })
     }
   }
 </script>
@@ -190,7 +203,6 @@
     top: 3.4rem;
     bottom: 1rem;
     overflow: hidden;
-    z-index: -1;
   }
   .goods .menu-wrapper{
     flex: 0 0 1.5rem;

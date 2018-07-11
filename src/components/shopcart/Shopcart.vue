@@ -56,6 +56,9 @@
   import Cartcontrol from '../cartcontrol/Cartcontrol'
 
   export default {
+    components: {
+      'app-cart-control': Cartcontrol
+    },
     data(){
       return {
         flag: true
@@ -70,9 +73,6 @@
         type: Array,
         default: []
       }
-    },
-    components: {
-      'app-cart-control': Cartcontrol
     },
     computed: {
       totalCount(){
