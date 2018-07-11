@@ -1,10 +1,12 @@
 <template>
   <div class="cart-control">
-    <span
-      class="decrease-cart"
-      @click.stop.prevent="decreaseCart"
-      v-show="food.count"
-    ></span>
+    <transition name="move">
+      <span
+        class="decrease-cart"
+        @click.stop.prevent="decreaseCart"
+        v-show="food.count"
+      ></span>
+    </transition>
     <span class="cart-num" v-show="food.count">{{food.count}}</span>
     <span
       class="increase-cart"
@@ -87,5 +89,11 @@
   }
   .cart-control .cart-num{
     margin: 0 0.15rem;
+  }
+  .move-enter-active,.move-leave-active{
+    transition: all 0.5s linear;
+  }
+  .move-enter,.move-leave-to{
+    transform: translateX(0.3rem) rotate(180deg);
   }
 </style>

@@ -1,63 +1,65 @@
 <template>
-  <div class="product-detail" v-show="flag" ref="productDetail">
-    <div class="food-wrapper">
-      <!-- 外卖详情 start -->
-      <div class="food-content">
-        <img class="food-pic" :src="food.picture" >
-        <div class="tool-icons">
-          <span class="close-icon" @click="hideProduct"></span>
-          <span class="share-icon">
-            <img src="./img/share.png" >
-          </span>
-          <span class="more-icon">
-            <img src="./img/more.png" >
-          </span>
-        </div>
-        <div class="food-desc-wrapper">
-          <div class="food-desc">
-            <h3>{{food.name}}</h3>
-            <p>{{food.month_saled_content}}</p>
-            <p><b>&yen; {{food.min_price}}</b>/{{food.unit}}</p>
+  <transition name="food-detail">
+    <div class="product-detail" v-show="flag" ref="productDetail">
+      <div class="food-wrapper">
+        <!-- 外卖详情 start -->
+        <div class="food-content">
+          <img class="food-pic" :src="food.picture" >
+          <div class="tool-icons">
+            <span class="close-icon" @click="hideProduct"></span>
+            <span class="share-icon">
+              <img src="./img/share.png" >
+            </span>
+            <span class="more-icon">
+              <img src="./img/more.png" >
+            </span>
           </div>
-          <div class="select-box">
-            <div class="cart-control-wrapper" v-show="food.count">
-              <app-cart-control :food="food"></app-cart-control>
+          <div class="food-desc-wrapper">
+            <div class="food-desc">
+              <h3>{{food.name}}</h3>
+              <p>{{food.month_saled_content}}</p>
+              <p><b>&yen; {{food.min_price}}</b>/{{food.unit}}</p>
             </div>
-            <div class="select-spec" v-show="!food.count || food.count === 0" @click="addCart">选规格</div>
-          </div>
-        </div>
-      </div>
-      <!-- 外卖详情 end -->
-
-      <!-- 外卖评价 start -->
-      <div class="food-ratings">
-        <div class="hd">
-          <div class="hd-left" v-if="food.rating">
-            <span class="rating-title">{{food.rating.title}}</span>
-            <span class="like-desc">({{food.rating.like_ratio_desc}} <b>{{food.rating.like_ratio}}</b>)</span>
-          </div>
-          <div class="hd-right" v-if="food.rating">
-            <span class="comment-count">{{food.rating.comment_count}}条评论</span>
-            <span class="icon-keyboard_arrow_right"></span>
-          </div>
-        </div>
-        <div class="bd">
-          <ul class="comment-list" v-if="food.rating">
-            <li class="comment-item" v-for="(comment, index) in food.rating.comment_list" :key="index">
-              <img :src="comment.user_icon" v-if="comment.user_icon">
-              <img src="./img/anonymity.png" v-if="!comment.user_icon">
-              <div class="comment-detail">
-                <p class="user-name">{{comment.user_name}}</p>
-                <p class="comment-content">{{comment.comment_content}}</p>
-                <p class="comment-time">{{comment.comment_time}}</p>
+            <div class="select-box">
+              <div class="cart-control-wrapper" v-show="food.count">
+                <app-cart-control :food="food"></app-cart-control>
               </div>
-            </li>
-          </ul>
+              <div class="select-spec" v-show="!food.count || food.count === 0" @click="addCart">选规格</div>
+            </div>
+          </div>
         </div>
+        <!-- 外卖详情 end -->
+
+        <!-- 外卖评价 start -->
+        <div class="food-ratings">
+          <div class="hd">
+            <div class="hd-left" v-if="food.rating">
+              <span class="rating-title">{{food.rating.title}}</span>
+              <span class="like-desc">({{food.rating.like_ratio_desc}} <b>{{food.rating.like_ratio}}</b>)</span>
+            </div>
+            <div class="hd-right" v-if="food.rating">
+              <span class="comment-count">{{food.rating.comment_count}}条评论</span>
+              <span class="icon-keyboard_arrow_right"></span>
+            </div>
+          </div>
+          <div class="bd">
+            <ul class="comment-list" v-if="food.rating">
+              <li class="comment-item" v-for="(comment, index) in food.rating.comment_list" :key="index">
+                <img :src="comment.user_icon" v-if="comment.user_icon">
+                <img src="./img/anonymity.png" v-if="!comment.user_icon">
+                <div class="comment-detail">
+                  <p class="user-name">{{comment.user_name}}</p>
+                  <p class="comment-content">{{comment.comment_content}}</p>
+                  <p class="comment-time">{{comment.comment_time}}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- 外卖评价 end -->
       </div>
-      <!-- 外卖评价 end -->
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -255,7 +257,10 @@
     right: 0;
     top: 0;
   }
-
-
-
+  .food-detail-enter-active, .food-detail-leave-active {
+    transition:  1.0s
+  }
+  .food-detail-enter, .food-detail-leave-to {
+    transform: translateX(100%);
+  }
 </style>
